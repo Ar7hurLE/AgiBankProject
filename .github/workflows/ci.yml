@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      CI: "True"  
+      CI: "True"
 
     steps:
     - name: Checkout
@@ -29,22 +29,18 @@ jobs:
         pip install robotframework-seleniumlibrary
         pip install robotframework-requests
 
-    - name: Install Chrome
+    - name: Install Google Chrome
       run: |
         sudo apt-get update
-        sudo apt-get install -y google-chrome-stable unzip wget
+        sudo apt-get install -y google-chrome-stable
 
     - name: Install ChromeDriver
       run: |
-        CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
-        wget -N https://chromedriver.storage.googleapis.com/$CHROME_VERSION/chromedriver_linux64.zip
-        unzip chromedriver_linux64.zip
-        sudo mv chromedriver /usr/local/bin/
-        sudo chmod +x /usr/local/bin/chromedriver
+        sudo apt-get install -y chromium-chromedriver
 
     - name: Run Robot web Tests
       run: |
-        robot -v CI:${CI} -d relatorio tests/web
+        robot -d relatorio tests/web
 
     - name: Upload Results
       if: always()
