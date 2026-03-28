@@ -10,9 +10,6 @@ jobs:
   tests:
     runs-on: ubuntu-latest
 
-    env:
-      CI: "True"
-
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -25,20 +22,17 @@ jobs:
     - name: Install dependencies
       run: |
         pip install --upgrade pip
-        pip install robotframework
-        pip install robotframework-seleniumlibrary
-        pip install robotframework-requests
+        pip install robotframework robotframework-seleniumlibrary robotframework-requests webdriver-manager
 
-    - name: Install Google Chrome
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y google-chrome-stable
+    - name: Setup Chrome & Driver
+      uses: browser-actions/setup-chrome@v1
+      with:
+        chrome-version: stable
 
-    - name: Install ChromeDriver
-      run: |
-        sudo apt-get install -y chromium-chromedriver
+    - name: Check Chrome Version
+      run: google-chrome --version
 
-    - name: Run Robot web Tests
+    - name: Run Robot Web Tests
       run: |
         robot -d relatorio tests/web
 

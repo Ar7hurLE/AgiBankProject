@@ -9,7 +9,8 @@ Abrir agibank
     Call Method    ${options}    add_argument    --window-size\=1920,1080
     Call Method    ${options}    add_argument    --no-sandbox
     Call Method    ${options}    add_argument    --disable-dev-shm-usage
-    Open Browser    ${url}    ${browser}    options=${options}
+    Open Browser    ${URL}    ${BROWSER}    options=${options}
+
 
 Fechar Browser
     Close Browser
