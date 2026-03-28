@@ -10,6 +10,9 @@ jobs:
   tests:
     runs-on: ubuntu-latest
 
+    env:
+      CI: "True"  
+
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -21,20 +24,27 @@ jobs:
 
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
+        pip install --upgrade pip
         pip install robotframework
         pip install robotframework-seleniumlibrary
-        pip install robotframework-requestslibrary
-        pip install webdriver-manager
+        pip install robotframework-requests
 
     - name: Install Chrome
       run: |
         sudo apt-get update
-        sudo apt-get install -y google-chrome-stable
+        sudo apt-get install -y google-chrome-stable unzip wget
+
+    - name: Install ChromeDriver
+      run: |
+        CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
+        wget -N https://chromedriver.storage.googleapis.com/$CHROME_VERSION/chromedriver_linux64.zip
+        unzip chromedriver_linux64.zip
+        sudo mv chromedriver /usr/local/bin/
+        sudo chmod +x /usr/local/bin/chromedriver
 
     - name: Run Robot web Tests
       run: |
-        robot -d relatorio tests/web
+        robot -v CI:${CI} -d relatorio tests/web
 
     - name: Upload Results
       if: always()
