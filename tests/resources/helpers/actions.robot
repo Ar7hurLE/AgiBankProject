@@ -4,8 +4,12 @@ Resource  ../../variables/libraries_variables.robot
 
 *** Keywords ***
 Abrir agibank
-    Open Browser   ${URL}    ${BROWSER}    headless=True
-    Maximize Browser Window
+    ${options}=    Evaluate    selenium.webdriver.ChromeOptions()    modules=selenium.webdriver
+    Call Method    ${options}    add_argument    --headless
+    Call Method    ${options}    add_argument    --window-size\=1920,1080
+    Call Method    ${options}    add_argument    --no-sandbox
+    Call Method    ${options}    add_argument    --disable-dev-shm-usage
+    Open Browser    ${url}    ${browser}    options=${options}
 
 Fechar Browser
     Close Browser
