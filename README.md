@@ -19,7 +19,7 @@ Para rodar os testes:
 
 ```bash
 git clone https://github.com/Ar7hurLE/AgiBankProject.git
-cd tests
+cd AgiBank
 robot -d relatorio tests/web
 ```
 ## É possivel visualizar também os resultados de execucões anteriores na aba Actions do GitHub! :)
