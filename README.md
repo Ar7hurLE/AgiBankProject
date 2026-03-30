@@ -13,13 +13,26 @@
 
 ---
 
+## 📋 Pré-requisitos
+
+Para executar os testes localmente, é necessário ter instalado:
+
+- Python 3.10+
+- Robot Framework
+- Google Chrome
+
+## ⚙️ Instalação
+
+```bash
+pip install robotframework robotframework-seleniumlibrary robotframework-requests webdriver-manager
+```
 ## Execução Local
 
 Para rodar os testes:
 
 ```bash
 git clone https://github.com/Ar7hurLE/AgiBankProject.git
-cd AgiBank
+cd AgiBankProject
 robot -d relatorio tests/web
 ```
 ## É possivel visualizar também os resultados de execucões anteriores na aba Actions do GitHub! :)
